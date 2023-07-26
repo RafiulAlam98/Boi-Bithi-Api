@@ -7,4 +7,10 @@ export type IUser = {
   profileImg?: string
 }
 
-export type UserModel = Model<IUser, object>
+export type UserModel = {
+  isUserExists(email: string): Promise<Pick<IUser, 'email' | 'password'>>
+  isPasswordMatched(
+    givenPassword: string,
+    savedPassword: string,
+  ): Promise<boolean>
+} & Model<IUser>
