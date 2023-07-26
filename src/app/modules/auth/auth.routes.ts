@@ -10,6 +10,11 @@ router.put(
   RequestValidation.ValidateRequest(AuthValidation.loginZodSchema),
   AuthValidationController.loginUser,
 )
+router.put(
+  '/refresh-token',
+  RequestValidation.ValidateRequest(AuthValidation.loginZodSchema),
+  AuthValidationController.refreshTokenController,
+)
 export const AuthRoutes = {
   router,
 }
