@@ -18,6 +18,7 @@ const UserSchema = new Schema<IUser>(
     phoneNo: {
       type: String,
       required: true,
+      unique: true,
     },
     profileImg: {
       type: String,
