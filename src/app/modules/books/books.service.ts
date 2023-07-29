@@ -1,6 +1,5 @@
 import httpStatus from 'http-status'
 import ApiError from '../../errors/ApiError'
-import { IUser } from '../user/user.interface'
 import { IBooks } from './books.interface'
 import { Books } from './books.model'
 import { IReviews } from '../reviews/reviews.interface'
@@ -22,9 +21,10 @@ const getSingleBookService = async (
 }
 const updateOldBookService = async (
   id: string,
-  payload: Partial<IUser>,
+  payload: Partial<IBooks>,
 ): Promise<IBooks | null> => {
-  const result = await Books.findOneAndUpdate({ id }, payload, {
+  const filter = { _id: id }
+  const result = await Books.findOneAndUpdate(filter, payload, {
     new: true,
   })
   return result

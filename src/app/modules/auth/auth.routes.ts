@@ -5,7 +5,7 @@ import { AuthValidationController } from './auth.controller'
 
 const router = express.Router()
 
-router.put(
+router.post(
   '/login',
   RequestValidation.ValidateRequest(AuthValidation.loginZodSchema),
   AuthValidationController.loginUser,

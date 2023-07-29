@@ -9,6 +9,7 @@ const createUser: RequestHandler = catchAsync(
     const { ...user } = req.body
 
     const result = await UserService.createUserService(user)
+
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
