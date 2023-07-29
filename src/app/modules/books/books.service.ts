@@ -3,6 +3,8 @@ import ApiError from '../../errors/ApiError'
 import { IUser } from '../user/user.interface'
 import { IBooks } from './books.interface'
 import { Books } from './books.model'
+import { IReviews } from '../reviews/reviews.interface'
+import { Reviews } from '../reviews/reviews.model'
 
 const addNewBookService = async (payload: IBooks): Promise<IBooks | null> => {
   const result = await Books.create(payload)
@@ -15,7 +17,7 @@ const getAllBookService = async (): Promise<IBooks[]> => {
 const getSingleBookService = async (
   payload: string,
 ): Promise<IBooks | null> => {
-  const result = await Books.findById(payload)
+  const result = await Books.findOne({ _id: payload })
   return result
 }
 const updateOldBookService = async (
@@ -40,10 +42,17 @@ const deleteBookService = async (id: string) => {
   }
   return book
 }
+
+const addReview = async (payload: IReviews) => {
+  const result = await Reviews.create(payload)
+  return result
+}
+
 export const BookService = {
   addNewBookService,
   getAllBookService,
   getSingleBookService,
   updateOldBookService,
   deleteBookService,
+  addReview,
 }
