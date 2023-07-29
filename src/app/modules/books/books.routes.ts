@@ -12,8 +12,16 @@ router.post(
   BooksController.addNewBooks,
 )
 router.get('/:id', BooksController.getSingleBook)
-router.patch('/:id', BooksController.updateOldBook)
-router.get('/', BooksController.getAllBooks)
+router.patch(
+  '/:id',
+
+  BooksController.updateOldBook,
+)
+router.get(
+  '/',
+
+  BooksController.getAllBooks,
+)
 router.delete('/:id', BooksController.deleteBooks)
 
 router.post(
