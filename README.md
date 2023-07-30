@@ -1,5 +1,5 @@
 # Github Repo: https://github.com/RafiulAlam98/book-catalogue-server
-# Vercel: Api: https://book-catalogue-backend-three.vercel.app
+# Vercel Api: https://book-catalogue-backend-three.vercel.app
 
 # Application Routes:
 
