@@ -18,4 +18,6 @@ export type IBooks = {
   review: string
 }
 
+export type IBookFilters = { searchTerm?: string }
+
 export type BookModel = Model<IBooks, Record<string, unknown>>

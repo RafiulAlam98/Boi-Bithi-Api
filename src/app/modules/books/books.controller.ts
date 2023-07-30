@@ -5,6 +5,8 @@ import httpStatus from 'http-status'
 import sendResponse from '../../../shared/sendResponse'
 import { BookService } from './books.service'
 import { IBooks } from './books.interface'
+import pick from '../../../shared/pick'
+import { bookFilterableFields } from './books.constant'
 
 const addNewBooks = catchAsync(async (req: Request, res: Response) => {
   const { ...books } = req.body
@@ -17,7 +19,8 @@ const addNewBooks = catchAsync(async (req: Request, res: Response) => {
   })
 })
 const getAllBooks = catchAsync(async (req: Request, res: Response) => {
-  const result = await BookService.getAllBookService()
+  const filters = pick(req.query, bookFilterableFields)
+  const result = await BookService.getAllBookService(filters)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

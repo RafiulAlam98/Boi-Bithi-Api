@@ -1,6 +1,7 @@
+import { bookSearchableFields } from './books.constant'
 import httpStatus from 'http-status'
 import ApiError from '../../errors/ApiError'
-import { IBooks } from './books.interface'
+import { IBookFilters, IBooks } from './books.interface'
 import { Books } from './books.model'
 import { IReviews } from '../reviews/reviews.interface'
 import { Reviews } from '../reviews/reviews.model'
@@ -10,8 +11,28 @@ const addNewBookService = async (payload: IBooks): Promise<IBooks | null> => {
   const result = await Books.create(payload)
   return result
 }
-const getAllBookService = async (): Promise<IBooks[]> => {
-  const result = await Books.find()
+const getAllBookService = async (filters: IBookFilters): Promise<IBooks[]> => {
+  const { searchTerm, ...filtersData } = filters
+  const andCondition = []
+  if (searchTerm) {
+    andCondition.push({
+      $or: bookSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $options: 'i',
+        },
+      })),
+    })
+  }
+  if (Object.keys(filtersData).length) {
+    andCondition.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    })
+  }
+  const whereConditions = andCondition.length > 0 ? { $and: andCondition } : {}
+  const result = await Books.find(whereConditions)
   return result
 }
 const getSingleBookService = async (
@@ -24,7 +45,6 @@ const updateOldBookService = async (
   id: string,
   payload: Partial<IBooks>,
 ): Promise<IBooks | null> => {
-  console.log(id, payload)
   const filter = { _id: id }
   const result = await Books.findOneAndUpdate(filter, payload, {
     new: true,
