@@ -21,7 +21,7 @@ const BookSchema = new Schema<IBooks>(
       required: true,
     },
     review: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: 'Riviews',
       required: false,
     },

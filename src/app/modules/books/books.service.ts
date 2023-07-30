@@ -4,6 +4,7 @@ import { IBooks } from './books.interface'
 import { Books } from './books.model'
 import { IReviews } from '../reviews/reviews.interface'
 import { Reviews } from '../reviews/reviews.model'
+import mongoose from 'mongoose'
 
 const addNewBookService = async (payload: IBooks): Promise<IBooks | null> => {
   const result = await Books.create(payload)
@@ -23,6 +24,7 @@ const updateOldBookService = async (
   id: string,
   payload: Partial<IBooks>,
 ): Promise<IBooks | null> => {
+  console.log(id, payload)
   const filter = { _id: id }
   const result = await Books.findOneAndUpdate(filter, payload, {
     new: true,
@@ -44,8 +46,25 @@ const deleteBookService = async (id: string) => {
 }
 
 const addReview = async (payload: IReviews) => {
-  const result = await Reviews.create(payload)
-  return result
+  const session = await mongoose.startSession()
+  let result
+  try {
+    const book = await Books.findOne({ _id: payload.bookId })
+    if (!book) {
+      throw new Error('Book Not found')
+    }
+    book.review = payload.review
+    await book.save()
+    result = await Reviews.create(payload)
+    const populateOrder = await Reviews.findOne({
+      bookId: result._id,
+    }).populate('Books')
+    return populateOrder
+  } catch (error) {
+    await session.abortTransaction()
+    await session.endSession()
+    throw error
+  }
 }
 
 export const BookService = {

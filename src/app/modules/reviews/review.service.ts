@@ -1,8 +1,7 @@
 import { Reviews } from './reviews.model'
 
 export const getSingleReview = async (id: string) => {
-  const result = await Reviews.findOne({ bookId: id })
-  console.log(result)
+  const result = await Reviews.findOne({ bookId: id }).populate('Books')
   return result
 }
 
