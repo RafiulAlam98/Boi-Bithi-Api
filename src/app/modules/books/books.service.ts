@@ -76,10 +76,7 @@ const addReview = async (payload: IReviews) => {
     book.review = payload.review
     await book.save()
     result = await Reviews.create(payload)
-    const populateOrder = await Reviews.findOne({
-      bookId: result._id,
-    }).populate('Books')
-    return populateOrder
+    return result
   } catch (error) {
     await session.abortTransaction()
     await session.endSession()
