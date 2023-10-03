@@ -36,7 +36,7 @@ const getAllBookService = async (filters: IBookFilters): Promise<IBooks[]> => {
 const getSingleBookService = async (
   payload: string,
 ): Promise<IBooks | null> => {
-  const result = await Books.findOne({ _id: payload })
+  const result = await Books.findOne({ _id: payload }).populate('reviews')
   return result
 }
 const updateOldBookService = async (
@@ -63,24 +63,7 @@ const deleteBookService = async (id: string) => {
   return book
 }
 
-// const addReview = async (payload: IReviews) => {
-//   const session = await mongoose.startSession()
-//   let result
-//   try {
-//     const book = await Books.findOne({ _id: payload.bookId })
-//     if (!book) {
-//       throw new Error('Book Not found')
-//     }
-//     book.review = payload.review
-//     await book.save()
-//     result = await Reviews.create(payload)
-//     return result
-//   } catch (error) {
-//     await session.abortTransaction()
-//     await session.endSession()
-//     throw error
-//   }
-// }
+
 
 export const BookService = {
   addNewBookService,

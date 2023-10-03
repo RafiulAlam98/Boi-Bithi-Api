@@ -2,14 +2,22 @@ import { Schema, model } from 'mongoose'
 import { IReviews, ReviewModel } from './reviews.interface'
 
 export const ReviewSchema = new Schema<IReviews>({
-  bookId: {
+  name: {
     type: String,
-    required: false,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
   },
   review: {
     type: String,
     required: true,
   },
+  rating: {
+    type: String,
+    required: true,
+  },
 })
 
-export const Reviews = model<IReviews, ReviewModel>('Riviews', ReviewSchema)
+export const Reviews = model<IReviews, ReviewModel>('reviews', ReviewSchema)

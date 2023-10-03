@@ -62,17 +62,6 @@ const deleteBooks = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
-// const addReview = catchAsync(async (req: Request, res: Response) => {
-//   const { ...data } = req.body
-//   console.log(data)
-//   // const result = await BookService.addReview(data)
-//   // sendResponse(res, {
-//   //   statusCode: httpStatus.OK,
-//   //   success: true,
-//   //   message: 'Review added successfully for this book',
-//   //   data: result,
-//   // })
-// })
 
 export const BooksController = {
   addNewBooks,

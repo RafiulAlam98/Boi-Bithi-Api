@@ -23,10 +23,7 @@ const moduleRoutes = [
     path: '/reviews/',
     route: ReviewRoutes.router,
   },
-  {
-    path: '/reviews/',
-    route: BookRoutes.router,
-  },
+
 ]
 
 moduleRoutes.forEach(route => router.use(route.path, route.route))

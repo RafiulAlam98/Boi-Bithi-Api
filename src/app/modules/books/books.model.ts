@@ -20,10 +20,8 @@ const BookSchema = new Schema<IBooks>(
       type: String,
       required: true,
     },
-    review: {
-      type: String,
-      ref: 'Riviews',
-      required: false,
+    reviews: {
+      type: Array,
     },
     img: {
       type: String,

@@ -1,4 +1,5 @@
 import { Model } from 'mongoose'
+import { IReviews } from '../reviews/reviews.interface'
 
 export type IGenericResponse = {
   title: string
@@ -18,7 +19,7 @@ export type IBooks = {
   author: string
   genre: string
   publicationDate: string
-  review?: string
+  reviews?: IReviews
   img?: string
   price?: string
   description?: string

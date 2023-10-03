@@ -1,8 +1,10 @@
 import { Model } from 'mongoose'
 
 export type IReviews = {
-  bookId: string
+  name: string
+  email: string
   review: string
+  rating: string
 }
 
 export type ReviewModel = Model<IReviews>
