@@ -25,6 +25,18 @@ const BookSchema = new Schema<IBooks>(
       ref: 'Riviews',
       required: false,
     },
+    img: {
+      type: String,
+      required: false,
+    },
+    price: {
+      type: String,
+      required: false,
+    },
+    description: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

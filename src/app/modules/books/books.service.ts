@@ -3,9 +3,7 @@ import httpStatus from 'http-status'
 import ApiError from '../../errors/ApiError'
 import { IBookFilters, IBooks } from './books.interface'
 import { Books } from './books.model'
-import { IReviews } from '../reviews/reviews.interface'
-import { Reviews } from '../reviews/reviews.model'
-import mongoose from 'mongoose'
+
 
 const addNewBookService = async (payload: IBooks): Promise<IBooks | null> => {
   const result = await Books.create(payload)
@@ -65,24 +63,24 @@ const deleteBookService = async (id: string) => {
   return book
 }
 
-const addReview = async (payload: IReviews) => {
-  const session = await mongoose.startSession()
-  let result
-  try {
-    const book = await Books.findOne({ _id: payload.bookId })
-    if (!book) {
-      throw new Error('Book Not found')
-    }
-    book.review = payload.review
-    await book.save()
-    result = await Reviews.create(payload)
-    return result
-  } catch (error) {
-    await session.abortTransaction()
-    await session.endSession()
-    throw error
-  }
-}
+// const addReview = async (payload: IReviews) => {
+//   const session = await mongoose.startSession()
+//   let result
+//   try {
+//     const book = await Books.findOne({ _id: payload.bookId })
+//     if (!book) {
+//       throw new Error('Book Not found')
+//     }
+//     book.review = payload.review
+//     await book.save()
+//     result = await Reviews.create(payload)
+//     return result
+//   } catch (error) {
+//     await session.abortTransaction()
+//     await session.endSession()
+//     throw error
+//   }
+// }
 
 export const BookService = {
   addNewBookService,
@@ -90,5 +88,4 @@ export const BookService = {
   getSingleBookService,
   updateOldBookService,
   deleteBookService,
-  addReview,
 }

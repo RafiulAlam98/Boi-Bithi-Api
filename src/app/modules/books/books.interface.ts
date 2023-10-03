@@ -5,6 +5,9 @@ export type IGenericResponse = {
   author: string
   genre: string
   publicationDate: string
+  img?: string
+  price?: string
+  description?: string
   _id: string
   createdAt: string
   updatedAt: string
@@ -15,7 +18,10 @@ export type IBooks = {
   author: string
   genre: string
   publicationDate: string
-  review: string
+  review?: string
+  img?: string
+  price?: string
+  description?: string
 }
 
 export type IBookFilters = { searchTerm?: string }

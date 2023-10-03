@@ -2,7 +2,7 @@ import express from 'express'
 import { RequestValidation } from '../../middlewares/validateRequest'
 import { BooksValidation } from './books.validation'
 import { BooksController } from './books.controller'
-import { ReviewValidation } from '../reviews/reviews.validation'
+
 
 const router = express.Router()
 
@@ -24,11 +24,11 @@ router.get(
 )
 router.delete('/:id', BooksController.deleteBooks)
 
-router.post(
-  '/add-reviews',
-  RequestValidation.ValidateRequest(ReviewValidation.createZodSchema),
-  BooksController.addReview,
-)
+// router.post(
+//   '/add-reviews',
+//   RequestValidation.ValidateRequest(ReviewValidation.createZodSchema),
+//   BooksController.addReview,
+// )
 export const BookRoutes = {
   router,
 }
